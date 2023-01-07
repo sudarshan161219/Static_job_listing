@@ -2,9 +2,24 @@ import data from './data.json' assert { type: "json" }
 const content = document.querySelector('.content')
 const ulList = document.querySelector('.ulList')
 
+// language tags
+const language = (lang) => {
+  let lan = ""
+  lang.forEach((item) => {
+    lan += `<li>${item}</li>`
+  })
+  return lan;
+};
 
-
-
+// Tools tags
+const tags = ( tags) => {
+  let tag = ""
+  tags.forEach((item) => {
+    tag +=  `<li>${item}</li>`
+  })
+  return tag;
+}
+ 
 data.forEach((item) => {
 
     const listItem = document.createElement('li')
@@ -39,7 +54,12 @@ data.forEach((item) => {
 </div>
 
 <div class="tags-container">
-
+<ul class="tags-list" >
+${language(item.languages)}
+${tags(item.tools)}
+<li>${item.role}</li>
+<li>${item.level}</li>
+</ul>
 </div>
 
 
@@ -49,3 +69,14 @@ data.forEach((item) => {
 
 })
 
+
+
+
+// Create Language Cards
+// const createLang = (langs)=>{
+//   let langCards="";
+//   langs.forEach((lang)=>{
+//       langCards += `<span class="lang filter">${lang}</span>`;
+//   });
+//   return langCards;
+// };
