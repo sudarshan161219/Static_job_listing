@@ -1,25 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Frontend Mentor | Job Listings</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <img class="mobile-header" src="./images/bg-header-mobile.svg" alt="" />
+      </nav>
+    </header>
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  <link rel="stylesheet" href="styles.css">
-  <title>Frontend Mentor | Job Listings</title>
-</head>
-<body>
-<header>
-  <nav>
-    <img class="mobile-header" src="./images/bg-header-mobile.svg" alt="">
-  </nav>
-</header>
-<main class="container">
-<ul class="content">
+    <main class="container">
+      <div>
+        <div class="filter-container">
+          <ul class="filter-list"></ul>
+        </div>
+        <ul class="content"></ul>
+      </div>
+    </main>
 
-</ul>
-</main>
-  
-<script type="module" src="app.js"></script>
-</body>
+    <script type="module" src="app.js"></script>
+  </body>
 </html>
