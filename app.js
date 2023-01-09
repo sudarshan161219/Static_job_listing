@@ -21,11 +21,13 @@ const tags = (tags) => {
   return tag;
 }
 
-data.forEach((item) => {
-  
+
+const jobList = (li, element) =>{
+li.forEach((item) => {
+
   const listItem = document.createElement('li')
   listItem.className = "list"
-          listItem.innerHTML = `
+          listItem.innerHTML = ` 
           ${item.featured ? `   <div class="border-style" ></div>` : ''} 
       <div class="img-info-container" >
          <div class="img-container">
@@ -63,34 +65,24 @@ data.forEach((item) => {
       </ul>
       </div>
         `
-
-
-  content.appendChild(listItem)
-
-
+element.appendChild(listItem)
 
 });
 
-const tagss = document.querySelectorAll('.li' )
-const list = document.querySelector('.list' )
+}
 
-// let hello = data.filter((item) => {
-// //  item.languages.forEach((i) => {
-// //   return i
-// // })
+// FIlter
+let ii
+let hello = data.filter ((item) => {
+item.languages.forEach((i) => {
+ii = i
+})
+return ii ===  "Ruby"
 
-// return item.languages === "Python"
+})
 
-// })
+console.log(hello)
 
-// console.log(hello)
-// let ii
-// let hello = data.filter ((item) => {
-// item.languages.forEach((i) => {
-// ii = i
-// })
-// return ii ===  "Python"
+ 
+jobList(hello, content);
 
-// })
-
-// console.log(hello)
