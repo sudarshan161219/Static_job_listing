@@ -4,6 +4,10 @@ const filterBox = document.querySelector('.filter-container');
 const tagText = document.querySelector('.tag-text');
 const searchTag = document.querySelector('.search')
 
+
+
+
+
 // language tags
 const language = (lang) => {
   let lan = ""
@@ -70,37 +74,14 @@ const jobList = (li, element) => {
 
   });
 
-
-const liTags = document.querySelectorAll(".li");
-
-
-liTags.forEach((tags) => { 
-  tags.addEventListener("click", (e) => {
-    let result = e.target.textContent
-    filterBox.classList.add('show-filter-container')
-    funTag(result)
-  })
-})
-
+  litags()
 
 }
 
 
 
 
-// FIlter
-let ii
-let hello = data.filter((item) => {
-  item.languages.forEach((i) => {
-    ii = i
-  })
-  return ii === "Ruby"
 
-})
-
-
-
-jobList(data, content);
 
 
 const funTag = (text) => {
@@ -116,12 +97,48 @@ const funTag = (text) => {
   searchTag.appendChild(container)
 
   const clear = document.querySelectorAll('.clear');
-clear.forEach((btn, i) => {
-  btn.addEventListener("click", () => {
-    // searchTag.removeChild(container)[i]
-    console.log("hello", i)
+  const listC = document.querySelectorAll('.list-container')
+  
+  
+  clear.forEach((btn, i) => {
+   btn.addEventListener("click", (e) => {
+    searchTag.removeChild( listC[i])
+   })
   })
-})
 
 
 }
+
+
+function litags()  {
+  const liTags = document.querySelectorAll(".li");
+
+
+  liTags.forEach((tags) => { 
+    tags.addEventListener("click", (e) => {
+    let  result = e.target.textContent
+      filterBox.classList.add('show-filter-container')
+      funTag(result)
+    })
+  
+  })
+}
+
+// FIlter
+
+let ii
+let hello = data.filter((item) => {
+  item.languages.forEach((i) => {
+    ii = i
+  })
+ 
+return ii == "Python" 
+
+
+ 
+})
+
+
+
+jobList(hello, content);
+
