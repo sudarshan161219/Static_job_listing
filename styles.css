@@ -117,7 +117,7 @@ body {
 }
 
 .company-logo{
-	width: 70px;
+	width: 60px;
 }
 
 
@@ -193,4 +193,44 @@ body {
 
 .tags-container{
 	margin-bottom: 2rem;
+}
+
+.filter-container{
+	display: none;
+	justify-content: space-between;
+	padding: 1rem 1.2rem;
+	flex-wrap: wrap;
+}
+
+.show-filter-container{
+	display: flex;
+}
+
+.filter-container > button{
+	border: none;
+	font-weight: 500;
+color: var(--color-DarkGrayishCyan);
+background-color: inherit;	
+}
+
+.search{
+		display: flex;
+		flex-wrap: wrap;
+		gap: 1rem;
+}
+
+.list-container {
+	display: flex;
+	align-items: center;
+	text-align: left;
+}
+
+.search > .list-container > span {
+	padding: 0 1.1rem 0 0;
+	color: var(--color-DesaturateDarkCyan);
+}
+
+.search > .list-container > .clear-img-container > img{
+	padding: 0.5rem;
+	background-color: var(--color-DesaturateDarkCyan);
 }

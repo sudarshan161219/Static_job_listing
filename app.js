@@ -1,7 +1,8 @@
 import data from './data.json' assert { type: "json" };
 const content = document.querySelector('.content');
-const filterContent = document.querySelector('.filter-list');
-
+const filterBox = document.querySelector('.filter-container');
+const tagText = document.querySelector('.tag-text');
+const searchTag = document.querySelector('.search')
 
 // language tags
 const language = (lang) => {
@@ -22,12 +23,12 @@ const tags = (tags) => {
 }
 
 
-const jobList = (li, element) =>{
-li.forEach((item) => {
+const jobList = (li, element) => {
+  li.forEach((item) => {
 
-  const listItem = document.createElement('li')
-  listItem.className = "list"
-          listItem.innerHTML = ` 
+    const listItem = document.createElement('li')
+    listItem.className = "list"
+    listItem.innerHTML = ` 
           ${item.featured ? `   <div class="border-style" ></div>` : ''} 
       <div class="img-info-container" >
          <div class="img-container">
@@ -65,24 +66,62 @@ li.forEach((item) => {
       </ul>
       </div>
         `
-element.appendChild(listItem)
+    element.appendChild(listItem)
 
-});
+  });
+
+
+const liTags = document.querySelectorAll(".li");
+
+
+liTags.forEach((tags) => { 
+  tags.addEventListener("click", (e) => {
+    let result = e.target.textContent
+    filterBox.classList.add('show-filter-container')
+    funTag(result)
+  })
+})
+
 
 }
 
+
+
+
 // FIlter
 let ii
-let hello = data.filter ((item) => {
-item.languages.forEach((i) => {
-ii = i
-})
-return ii ===  "Ruby"
+let hello = data.filter((item) => {
+  item.languages.forEach((i) => {
+    ii = i
+  })
+  return ii === "Ruby"
 
 })
 
-console.log(hello)
 
- 
-jobList(hello, content);
 
+jobList(data, content);
+
+
+const funTag = (text) => {
+  const container = document.createElement('li')
+  container.className = "list-container"
+
+  container.innerHTML = `
+  <span class="tag-text" >${text}</span>
+  <div class="clear-img-container" >
+    <img class="clear" src="/images/icon-remove.svg" alt="clear">
+  </div>
+  `
+  searchTag.appendChild(container)
+
+  const clear = document.querySelectorAll('.clear');
+clear.forEach((btn, i) => {
+  btn.addEventListener("click", () => {
+    // searchTag.removeChild(container)[i]
+    console.log("hello", i)
+  })
+})
+
+
+}
