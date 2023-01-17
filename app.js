@@ -74,55 +74,9 @@ const jobList = (li, element) => {
 
   });
 
-  litags()
-
 }
 
 
-
-
-
-
-
-const funTag = (text) => {
-  const container = document.createElement('li')
-  container.className = "list-container"
-
-  container.innerHTML = `
-  <span class="tag-text" >${text}</span>
-  <div class="clear-img-container" >
-    <img class="clear" src="/images/icon-remove.svg" alt="clear">
-  </div>
-  `
-  searchTag.appendChild(container)
-
-  const clear = document.querySelectorAll('.clear');
-  const listC = document.querySelectorAll('.list-container')
-  
-  
-  clear.forEach((btn, i) => {
-   btn.addEventListener("click", (e) => {
-    searchTag.removeChild( listC[i])
-   })
-  })
-
-
-}
-
-
-function litags()  {
-  const liTags = document.querySelectorAll(".li");
-
-
-  liTags.forEach((tags) => { 
-    tags.addEventListener("click", (e) => {
-    let  result = e.target.textContent
-      filterBox.classList.add('show-filter-container')
-      funTag(result)
-    })
-  
-  })
-}
 
 // FIlter
 
