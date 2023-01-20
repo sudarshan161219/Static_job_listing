@@ -73,6 +73,64 @@ const jobList = (li, element) => {
     element.appendChild(listItem)
 
   });
+  litags()
+  clearTag ()
+}
+
+function litags()  {
+  const liTags = document.querySelectorAll(".li");
+
+
+  liTags.forEach((tags) => { 
+    tags.addEventListener("click", (e) => {
+    let  result = e.target.textContent
+      filterBox.classList.add('show-filter-container')
+      funTag(result)
+      
+    })
+
+  })
+}
+
+const funTag = (text) => {
+  const container = document.createElement('li')
+  container.className = "list-container"
+  container.innerHTML = `
+  <span class="tag-text" >${text}</span>
+  <div class="clear-img-container" >
+    <img class="clear" src="/images/icon-remove.svg" alt="clear">
+  </div>
+  `
+  searchTag.appendChild(container)
+  // clearTag(container)
+  clearTag()
+}
+
+// const list = document.getElementById("myList");
+
+// if (list.hasChildNodes()) {
+//   list.removeChild(list.children[0]);
+// }
+
+const clearTag = () => {
+  const clear = document.querySelectorAll('.clear')
+  const list = document.querySelectorAll('.list-container')
+
+
+  // clear.forEach((item, ix) => (
+  //  item.addEventListener("click", () =>{
+  //   tagList.remove(tagList)
+  //  })
+  // ))
+
+for (let index = 0; index < clear.length; index++) {
+  const element = clear[index];
+  element.addEventListener("click", () =>{
+    // console.log("for loop")
+    list[index].remove()
+  })
+  
+}
 
 }
 
@@ -81,7 +139,7 @@ const jobList = (li, element) => {
 // FIlter
 
 let ii
-let hello = data.filter((item) => {
+let filteredItems = data.filter((item) => {
   item.languages.forEach((i) => {
     ii = i
   })
@@ -94,5 +152,5 @@ return ii == "Python"
 
 
 
-jobList(hello, content);
+jobList(filteredItems, content);
 
