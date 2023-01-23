@@ -6,7 +6,7 @@ const searchTag = document.querySelector('.search')
 
 
 
-
+let listItem = []
 
 // language tags
 const language = (lang) => {
@@ -74,82 +74,64 @@ const jobList = (li, element) => {
 
   });
   litags()
-  clearTag ()
+  clearTag()
 }
 
-function litags()  {
+function litags() {
   const liTags = document.querySelectorAll(".li");
-
-
-  liTags.forEach((tags) => { 
+  liTags.forEach((tags, i) => {
     tags.addEventListener("click", (e) => {
-    let  result = e.target.textContent
+      let result = e.target.textContent
       filterBox.classList.add('show-filter-container')
-      funTag(result)
-      
+      // funTag(result)
+      if (!listItem.includes(result)) {
+        listItem.push(result)
+        Tags()
+      }
     })
-
   })
+
 }
 
-const funTag = (text) => {
-  const container = document.createElement('li')
-  container.className = "list-container"
-  container.innerHTML = `
-  <span class="tag-text" >${text}</span>
+
+const Tags = () => {
+  searchTag.querySelectorAll('li').forEach(li => li.remove())
+  listItem.forEach((li) => {
+    const container = document.createElement('li')
+    container.className = "list-container"
+    container.innerHTML = `
+  <span class="tag-text" >${li}</span>
   <div class="clear-img-container" >
     <img class="clear" src="/images/icon-remove.svg" alt="clear">
   </div>
   `
-  searchTag.appendChild(container)
-  // clearTag(container)
+    searchTag.appendChild(container)
+  })
   clearTag()
 }
 
-// const list = document.getElementById("myList");
 
-// if (list.hasChildNodes()) {
-//   list.removeChild(list.children[0]);
-// }
+
 
 const clearTag = () => {
   const clear = document.querySelectorAll('.clear')
   const list = document.querySelectorAll('.list-container')
-
-
-  // clear.forEach((item, ix) => (
-  //  item.addEventListener("click", () =>{
-  //   tagList.remove(tagList)
-  //  })
-  // ))
-
-for (let index = 0; index < clear.length; index++) {
-  const element = clear[index];
-  element.addEventListener("click", () =>{
-    // console.log("for loop")
-    list[index].remove()
+  clear.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      list[index].remove()
+    })
   })
-  
 }
-
-}
-
 
 
 // FIlter
-
 let ii
 let filteredItems = data.filter((item) => {
   item.languages.forEach((i) => {
     ii = i
   })
- 
-return ii == "Python" 
-
-
- 
+  return ii == "Python"
 })
-
 
 
 jobList(filteredItems, content);
