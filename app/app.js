@@ -1,6 +1,7 @@
 import data from './data.json' assert { type: "json" };
 const content = document.querySelector('.content');
 const filterBox = document.querySelector('.filter-container');
+const tagText = document.querySelector('.tag-text');
 const searchTag = document.querySelector('.search')
 
 
@@ -26,15 +27,8 @@ const tags = (tags) => {
 }
 
 
-
-
 const jobList = (li, element) => {
-
- li.filter((user) => {
-    const tags = [user.level, user.role].concat(user.tools, user.languages);
-    return listItems.some(f => tags.includes(f))
- }) 
-li.forEach((item) => {
+  let ele = li.forEach((item) => {
     const listItem = document.createElement('li')
     listItem.className = "list"
     listItem.innerHTML = ` 
@@ -77,16 +71,10 @@ li.forEach((item) => {
             `
     element.appendChild(listItem)
 
-  })
-
-
-
- 
-
- 
+  });
   litags()
   clearTag()
-  
+
 }
 
 function litags() {
@@ -98,9 +86,9 @@ function litags() {
       clearTag(result)
       if (!listItems.includes(result)) {
         listItems.push(result)
-        Tags() 
+        Tags()
       }
-    
+      filtterdArr(listItems)
     })
   })
 
@@ -138,32 +126,21 @@ const clearTag = (text) => {
 }
 
 
-
-// let newData = ["CSS", "JavaScript"]
-
-
-  // if (!newData.includes(text)) {
-  //   newData.push(text)
-  // }
-//   function check () {
-//   data.filter((user) => {
-//   const tags = [user.level, user.role].concat(user.tools, user.languages);
-//   return listItems.some(f => tags.includes(f))
-// });
-//     jobList(data , content)
-//   }
-//   check ()
-
-// jobList(filteredArr , content)
-
-jobList(data , content)
+// FIlter
 
 
 
 
+const filtterdArr = (listItems) => {
+  data.filter((user) => {
+    const tags = [user.level, user.role].concat(user.tools, user.languages);
+   return listItems.some(f => tags.includes(f));
+  });
+}
 
 
- 
+jobList(data, content);
+
 
 
 
