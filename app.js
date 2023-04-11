@@ -1,44 +1,29 @@
-import data from './data.json' assert { type: "json" };
-const content = document.querySelector('.content');
-const filterBox = document.querySelector('.filter-container');
-const searchTag = document.querySelector('.search')
+import data from "./data.json" assert { type: "json" };
+const content = document.querySelector(".content");
+const filterBox = document.querySelector(".filter-container");
+const searchTag = document.querySelector(".search");
 
+window.addEventListener("load", () => {
+  render();
+});
 
+let listIArr = [];
 
-let listItems = []
+function render() {
+  data
+    .filter((user) => {
+      const tags = [user.level, user.role].concat(user.tools, user.languages);
+      return listIArr.every((f) => tags.includes(f));
+    })
+    .map((item, i) => {
+      const listItem = document.createElement("li");
+      listItem.className = "list";
+      if (listIArr.length !== 0) {
+        listItem.setAttribute("data-index", i);
+      }
 
-// language tags
-const language = (lang) => {
-  let lan = ""
-  lang.forEach((item) => {
-    lan += `<li class="li"  >${item}</li>`
-  })
-  return lan;
-};
-
-// Tools tags
-const tags = (tags) => {
-  let tag = ""
-  tags.forEach((item) => {
-    tag += `<li class="li"  >${item}</li>`
-  })
-  return tag;
-}
-
-
-
-
-const jobList = (li, element) => {
-
- li.filter((user) => {
-    const tags = [user.level, user.role].concat(user.tools, user.languages);
-    return listItems.some(f => tags.includes(f))
- }) 
-li.forEach((item) => {
-    const listItem = document.createElement('li')
-    listItem.className = "list"
-    listItem.innerHTML = ` 
-              ${item.featured ? `   <div class="border-style" ></div>` : ''} 
+      listItem.innerHTML = ` 
+              ${item.featured ? `<div class="border-style" ></div>` : ""} 
           <div class="img-info-container" >
              <div class="img-container">
              <img class="company-logo" src=${item.logo} alt=${item.company}  />
@@ -49,8 +34,12 @@ li.forEach((item) => {
                <div class="heading-container">
                   <h1 class="heading" >${item.company}</h1>
                      <div class="featured-container">
-                         ${item.new ? `<span class="new" >new!</span>` : ''} 
-                         ${item.featured ? `<span class="featured" >featured</span>` : ''} 
+                         ${item.new ? `<span class="new" >new!</span>` : ""} 
+                         ${
+                           item.featured
+                             ? `<span class="featured" >featured</span>`
+                             : ""
+                         } 
                      </div>
               </div>
           
@@ -74,96 +63,79 @@ li.forEach((item) => {
           <li class="li" >${item.level}</li>
           </ul>
           </div>
-            `
-    element.appendChild(listItem)
-
-  })
-
-
-
- 
-
- 
-  litags()
-  clearTag()
-  
+            `;
+      content.appendChild(listItem);
+    });
+  litags();
+  clearTag();
 }
 
 function litags() {
   const liTags = document.querySelectorAll(".li");
+  const list = document.querySelectorAll('.list')
   liTags.forEach((tags, i) => {
     tags.addEventListener("click", (e) => {
-      let result = e.target.textContent
-      filterBox.classList.add('show-filter-container')
-      clearTag(result)
-      if (!listItems.includes(result)) {
-        listItems.push(result)
-        Tags() 
+      let result = e.target.textContent;
+      filterBox.classList.add("show-filter-container");
+      clearTag(result);
+      if (!listIArr.includes(result)) {
+        listIArr.push(result);
+        Tags();
+        render();
       }
-    
-    })
-  })
-
+      if(list[i].hasAttribute("data-index")){
+console.log('h');
+      }
+    });
+  });
 }
 
-
-const Tags = () => {
-  searchTag.querySelectorAll('li').forEach(li => li.remove())
-  listItems.forEach((li) => {
-    const container = document.createElement('li')
-    container.className = "list-container"
+function Tags() {
+  searchTag.querySelectorAll("li").forEach((li) => li.remove());
+  listIArr.forEach((li) => {
+    const container = document.createElement("li");
+    container.className = "list-container";
     container.innerHTML = `
   <span class="tag-text" >${li}</span>
   <div class="clear-img-container" >
     <img class="clear" src="/images/icon-remove.svg" alt="clear">
   </div>
-  `
-    searchTag.appendChild(container)
-  })
-  clearTag()
+  `;
+    searchTag.appendChild(container);
+  });
+  clearTag();
 }
 
-
-
-
-const clearTag = (text) => {
-  const clear = document.querySelectorAll('.clear')
-  const list = document.querySelectorAll('.list-container')
+function clearTag(text) {
+  const clear = document.querySelectorAll(".clear");
+  const list = document.querySelectorAll(".list-container");
   clear.forEach((btn, index) => {
     btn.addEventListener("click", () => {
-      list[index].remove()
-      listItems.pop(text)
-    })
-  })
+      list[index].remove();
+      listIArr.pop(text);
+      if (listIArr.length === 0) {
+        filterBox.classList.remove("show-filter-container");
+        // checkFilters();
+        // render();
+      }
+    });
+  });
 }
 
+//* language tags
+function language(lang) {
+  let lan = "";
+  lang.forEach((item) => {
+    lan += `<li class="li"  >${item}</li>`;
+  });
+  return lan;
+}
 
-
-// let newData = ["CSS", "JavaScript"]
-
-
-  // if (!newData.includes(text)) {
-  //   newData.push(text)
-  // }
-//   function check () {
-//   data.filter((user) => {
-//   const tags = [user.level, user.role].concat(user.tools, user.languages);
-//   return listItems.some(f => tags.includes(f))
-// });
-//     jobList(data , content)
-//   }
-//   check ()
-
-// jobList(filteredArr , content)
-
-jobList(data , content)
-
-
-
-
-
-
- 
-
-
-
+//* Tools tags
+function tags(tags) {
+  let tag = "";
+  tags.forEach((item) => {
+    tag += `<li class="li"  >${item}</li>`;
+  });
+  return tag;
+}
